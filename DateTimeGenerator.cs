@@ -49,9 +49,9 @@ namespace EncryptionLibrary
         {
 #if WINDOWS_UWP
             myResultCompletionSource = null;
-#endif 
-        }       
-        
+#endif
+        }
+
         //-------------------------------------------------------------------------------------------------
         //--- Get the UTC time from a public NTP server
         //-------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ namespace EncryptionLibrary
                 //NTP uses UDP
                 using (var mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
                 {
-                    
+
                     mySocket.Connect(myIPEndPoint);
 
                     //Stops code hang if NTP is blocked
@@ -106,7 +106,7 @@ namespace EncryptionLibrary
 #endif
                 TheNetworkTime = ParseNetworkTime(myNTPDataArray);
             }
-            catch (Exception ex)
+            catch
             {
                 TheNetworkTime = DateTime.UtcNow;
             }
@@ -129,7 +129,7 @@ namespace EncryptionLibrary
         private DateTime ParseNetworkTime(byte[] TheByteArray)
         {
             DateTime TheNetworkTime;
-            //Offset to get to the "Transmit Timestamp" field (time at which the reply 
+            //Offset to get to the "Transmit Timestamp" field (time at which the reply
             //departed the server for the client, in 64-bit timestamp format."
             const byte TheServerReplyTime = 40;
 
